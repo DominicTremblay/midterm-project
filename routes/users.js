@@ -46,5 +46,13 @@ module.exports = ({ getUsers, addUser }) => {
 
   });
 
+  router.get('/:id', (req, res) => {
+
+    const userId = req.params.id;
+
+    res.json({userID: userId});
+  });
+
+
   return router;
 };
