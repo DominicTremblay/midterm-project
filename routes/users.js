@@ -5,21 +5,46 @@
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
 
-const express = require('express');
-const router  = express.Router();
+const express = require("express");
+const router = express.Router();
 
-module.exports = (db) => {
+module.exports = ({ getUsers, addUser }) => {
   router.get("/", (req, res) => {
-    db.query(`SELECT * FROM users;`)
-      .then(data => {
-        const users = data.rows;
+    getUsers()
+      .then((users) => {
         res.json({ users });
       })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
       });
   });
+
+  router.post("/", (req, res) => {
+    // creating a new user
+
+
+
+    // extract the info from the request
+
+    const {name, email, password} = req.body;
+
+    console.log(name, email, password);
+
+    // check if the user exists - midterm? not necessary
+
+    // save the user in the db
+
+    addUser(name, email, password)
+      .then(user => {
+        res.json(user);
+      })
+      .catch(err => console.log(err));
+
+
+    // single page app => redirect on the server will not work!
+    // redirect
+
+  });
+
   return router;
 };
