@@ -25,6 +25,8 @@ module.exports = (db) => {
   router.post("/", (req, res) => {
     // adding a new widget in db
 
+
+
     res.json({msg: 'posting a widget'});
 
   });
